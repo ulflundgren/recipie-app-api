@@ -6,6 +6,7 @@ services:
       context: .
     ports:
       - "8000:8000"
+      - "8888:8888"  # debugging service (ptvsd)
     volumes:
       - ./app:/app
     command: >

@@ -1,0 +1,70 @@
+{
+	"folders": [
+		{
+			"path": "."
+		}
+	],
+	"settings": {},
+	"tasks": {
+		"tasks": [
+			{
+				"type": "docker-build",
+				"label": "docker-build",
+				"platform": "python",
+				"dockerBuild": {
+					"tag": "recipieappapi:latest",
+					"dockerfile": "${workspaceFolder}/Dockerfile",
+					"context": "${workspaceFolder}"
+				}
+			},
+			{
+				"type": "docker-run",
+				"label": "docker-run: debug",
+				"dependsOn": [
+					"docker-build"
+				],
+				"python": {
+					"args": [
+						"runserver",
+						"0.0.0.0:8000",
+						"--nothreading",
+						"--noreload"
+					],
+					"file": "manage.py"
+				}
+			}
+		]
+	},
+	"launch": {
+		"configurations": [
+			{
+				"name": "Docker: Python - Django",
+				"type": "docker",
+				"request": "launch",
+				"preLaunchTask": "docker-run: debug",
+				"python": {
+					"pathMappings": [
+						{
+							"localRoot": "${workspaceFolder}",
+							"remoteRoot": "/app"
+						}
+					],
+					"projectType": "django"
+				}
+			},
+			{
+				"name": "Docker: Django",
+				"type": "python",
+				"request": "attach",
+				"pathMappings": [
+					{
+						"localRoot": "${workspaceFolder}",
+						"remoteRoot": "/app"
+					}
+				],
+				"port": 8888,
+				"host": "localhost",
+			}
+		]
+	}
+}

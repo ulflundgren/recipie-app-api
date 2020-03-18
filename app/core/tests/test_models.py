@@ -35,3 +35,10 @@ class ModelTests(TestCase):
 
         self.assertTrue(user.is_staff)
         self.assertTrue(user.is_superuser)
+
+    def test_create_user_with_shoesize(self):
+        """Test to create a user that has shoes"""
+        user = get_user_model().objects.create_user(
+            "uffe@ulflundgren.se", "password")
+        user.shoe_size = 37.5
+        self.assertEquals(user.shoe_size, 37.5)
