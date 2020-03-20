@@ -37,6 +37,7 @@
 	},
 	"launch": {
 		"configurations": [
+			
 			{
 				"name": "Docker: Python - Django",
 				"type": "docker",
